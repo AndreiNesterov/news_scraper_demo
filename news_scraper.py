@@ -112,7 +112,7 @@ def parse_articles(min:int, path_to_save="") -> None:
 
 	# forming a csv
 
-	filepath = {path_to_save}articles_data_{file_timestamp}.csv
+	filepath = f"{path_to_save}articles_data_{file_timestamp}.csv"
 
 	with open(filepath, "w", encoding="utf-8") as f:
 	    writer = csv.writer(f)
