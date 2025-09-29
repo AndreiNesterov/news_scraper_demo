@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 import re
 
-def _get_time_threshold(min:str) -> str:
+def _get_time_threshold(min:int) -> str:
     '''
     Getting the datetime threshold for If-Modified-Since;
     Calculates the time difference between current datetime and indicated N minutes
@@ -42,7 +42,7 @@ def _parse_urls(time_threshold:str) -> list:
         all_urls = [url + article_url['href'].lstrip('/') for article_url in soup.find('div',{'class':'topic-container'}).find_all('a',{'class':'topic-title'})]
         print(f"Found {len(all_urls)} articles to parse")
     else:
-        print(f'There has been no updates since {time_threshold}. ')
+        print(f'There has been no updates since {time_threshold}.')
 
     return all_urls
 
