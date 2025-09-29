@@ -6,17 +6,18 @@ from bs4 import BeautifulSoup
 import csv
 from datetime import datetime, timedelta
 import re
+import time
 
-def _get_time_threshold(min:int) -> str:
+def _get_time_threshold(minutes:int) -> str:
     '''
     Getting the datetime threshold for If-Modified-Since;
     Calculates the time difference between current datetime and indicated N minutes
-    min: int; last modified since N minutes
+    minutes: int; last modified since N minutes
     Returns str; format: 'Mon, 01 Jan 2025 00:00:00 GMT' (according to If-Modified-Since docs)
     '''
     
     current_datetime = datetime.utcnow()
-    last_updated_datetime = current_datetime - timedelta(minutes=min)
+    last_updated_datetime = current_datetime - timedelta(minutes=minutes)
     
     return last_updated_datetime.strftime("%a, %d %b %Y %H:%M:%S GMT")
 
@@ -82,11 +83,9 @@ def _parse_single_article(article_url:str) -> list:
 
 	return article_data
 
-
-
-def parse_articles(min:int, path_to_save="") -> None:
+def parse_articles(minutes:int, path_to_save="") -> None:
 	'''
-	min: int; last modified since N minutes;
+	minutes: int; last modified since N minutes;
 	path_to_save: str, default ""; where to save the csv file with results;
 	Requests data for all found articles and saves a csv
 	Returns None
@@ -94,7 +93,7 @@ def parse_articles(min:int, path_to_save="") -> None:
 
 	all_articles_data = []
 
-	time_threshold = _get_time_threshold(min)
+	time_threshold = _get_time_threshold(minutes)
 
 	all_urls = _parse_urls(time_threshold)
 
@@ -124,8 +123,3 @@ def parse_articles(min:int, path_to_save="") -> None:
 	print(f"Your data have been saved in {filepath}") 
 
 	return None
-
-
-
-
-    

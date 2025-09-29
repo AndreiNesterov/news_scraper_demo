@@ -1,3 +1,4 @@
 
 .DS_Store
 .ipynb_checkpoints/debug-checkpoint.ipynb
+__pycache__/news_scraper.cpython-38.pyc
