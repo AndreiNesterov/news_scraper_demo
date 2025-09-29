@@ -3,7 +3,7 @@
 
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
+import csv
 from datetime import datetime, timedelta
 import re
 
@@ -84,7 +84,42 @@ def _parse_single_article(article_url:str) -> list:
 
 
 
+def parse_articles(min:int, path_to_save="") -> None:
+	'''
+	'''
 
+	all_articles_data = []
+
+	time_threshold = _get_time_threshold(min)
+
+	all_urls = _parse_urls(time_threshold)
+
+	if len(all_urls) > 0:
+	    for single_article_url in all_urls:
+	        single_article_data = _parse_single_article(single_article_url)
+	        # to prevent a ban
+	        time.sleep(1)
+	        # making a list of lists to make a csv
+	        all_articles_data.append(single_article_data)
+	else:
+	    print('No new data have been retrieved')
+
+	file_timestamp = datetime.now().strftime("%d_%b_%Y_%H_%M_%S")
+
+	# forming a csv
+
+	filepath = {path_to_save}articles_data_{file_timestamp}.csv
+
+	with open(filepath, "w", encoding="utf-8") as f:
+	    writer = csv.writer(f)
+	    header = ["headline","author_name","publication date"]
+	    writer.writerow(header)
+	    # write rows
+	    writer.writerows(all_articles_data)
+
+	print(f"Your data have been saved in {filepath}") 
+
+	return None
 
 
 
