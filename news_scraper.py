@@ -86,6 +86,10 @@ def _parse_single_article(article_url:str) -> list:
 
 def parse_articles(min:int, path_to_save="") -> None:
 	'''
+	min: int; last modified since N minutes;
+	path_to_save: str, default ""; where to save the csv file with results;
+	Requests data for all found articles and saves a csv
+	Returns None
 	'''
 
 	all_articles_data = []
@@ -120,7 +124,6 @@ def parse_articles(min:int, path_to_save="") -> None:
 	print(f"Your data have been saved in {filepath}") 
 
 	return None
-
 
 
 
